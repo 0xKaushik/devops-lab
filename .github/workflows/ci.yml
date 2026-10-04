@@ -67,5 +67,4 @@ jobs:
           tags: |
             ${{ steps.meta.outputs.tags }}
             ghcr.io/0xkaushik/devops-lab:${{ github.sha }}
-            ${{ env.IMAGE_NAME }}:latest
           labels: ${{ steps.meta.outputs.labels }}
