@@ -1,0 +1,7 @@
+services:
+  api:
+    image: ghcr.io/0xkaushik/devops-lab:${IMAGE_TAG}
+    container_name: devops-prod-api
+    ports:
+      - "8000:8000"
+    restart: unless-stopped

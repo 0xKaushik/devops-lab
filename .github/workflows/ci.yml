@@ -68,3 +68,23 @@ jobs:
             ${{ steps.meta.outputs.tags }}
             ghcr.io/0xkaushik/devops-lab:${{ github.sha }}
           labels: ${{ steps.meta.outputs.labels }}
+
+
+  deploy:
+    needs: build-and-push
+    runs-on: [self-hosted, devops-lab]
+
+    steps:
+      - name: Deploy application
+        env:
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          cd /home/user/devops-lab/deploy
+
+          docker pull ghcr.io/0xkaushik/devops-lab:${IMAGE_TAG}
+
+          IMAGE_TAG=${IMAGE_TAG} docker compose up -d
+
+          docker compose ps
+
+          curl --fail http://localhost:8000/health
